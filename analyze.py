@@ -34,8 +34,14 @@ def clue(secret, guess):
     return sm
 
 def reduce(possibilities, guess):
-    return [p for p in possibilities if clue(p, guess) == 0]
+    cts = collections.defaultdict(int)
+    for p in possibilities:
+        cts[clue(p, guess)] += 1
+    return cts
 
 for w in sorted(WORDS):
     reductions = reduce(WORDS, w)
-    print w, len(reductions)
+    print w, sum(v for k, v in reductions.items() if k > 0),
+    for v in sorted(reductions.keys()):
+        print '{}:{}'.format(v, reductions[v]),
+    print

@@ -1,5 +1,6 @@
 import collections
 import itertools
+import pickle
 
 from dict import WORDS
 
@@ -49,19 +50,29 @@ def group(possibilities, guess):
         cts[clue(p, guess)].add(p)
     return cts
 
-kstates = set()
-sortedwords = sorted(WORDS)
-for w in sortedwords:
-    groups = group(sortedwords, w)
-    print w, sum(len(v) for k, v in groups.items() if k > 0),
-    ak = 0
-    for v in sorted(groups.keys()):
-        print '{}:{}'.format(v, len(groups[v])),
-        kstate = frozenset(groups[v])
-        if kstate not in kstates:
-            ak += 1
-            kstates.add(kstate)
-    print '({} kstates so far +{} this round)'.format(len(kstates), ak)
+KPICKLE='kstates.pickle'
+try:
+    with open(KPICKLE) as f:
+        kstates = pickle.load(kstates)
+except Exception as e:
+    print "Failed to load kstates cache:", e
+    print 'Layer 1 kstates'
+    kstates = set()
+    sortedwords = sorted(WORDS)
+    for w in sortedwords:
+        groups = group(sortedwords, w)
+        print w, sum(len(v) for k, v in groups.items() if k > 0),
+        ak = 0
+        for v in sorted(groups.keys()):
+            print '{}:{}'.format(v, len(groups[v])),
+            kstate = frozenset(groups[v])
+            if kstate not in kstates:
+                ak += 1
+                kstates.add(kstate)
+        print '({} kstates so far +{} this round)'.format(len(kstates), ak)
+
+with open(KPICKLE, 'wb') as f:
+    pickle.dump(kstates, f)
 
 print len(kstates), 'total kstates'
 print len(kstates)/float(len(WORDS)), 'kstates per word?'

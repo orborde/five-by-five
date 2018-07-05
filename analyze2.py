@@ -81,6 +81,9 @@ for w in SORTEDWORDS:
     idxclues.append(clmap)
 assert len(idxclues) == len(SORTEDWORDS)
 
+# memory!
+del clues
+
 masks = {}
 curmask = 1
 for w in reversed(SORTEDWORDS):

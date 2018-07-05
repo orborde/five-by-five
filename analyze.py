@@ -71,6 +71,7 @@ except Exception as e:
                 kstates.add(kstate)
         print '({} kstates so far +{} this round)'.format(len(kstates), ak)
 
+print 'saving kstates to', KPICKLE
 with open(KPICKLE, 'wb') as f:
     pickle.dump(kstates, f)
 

@@ -1,6 +1,7 @@
 import collections
 import itertools
 import pickle
+import resource
 import time
 
 from dict import WORDS
@@ -103,7 +104,8 @@ for i, kstate in enumerate(kstates):
             else:
                 duped +=1
 
-    print int(time.time()-start),
+    ru = resource.getrusage(resource.RUSAGE_SELF)
+    print int(time.time()-start), ru.ru_maxrss+ru.ru_ixrss+ru.ru_idrss+ru.ru_isrss,
     print "{}/{} (size {})".format(i+1, len(kstates), len(kstate)), len(kstates2), len(kstates2)/(i+1),
     print "+{} ={} /{}".format(added, duped, ct)
 

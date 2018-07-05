@@ -53,7 +53,8 @@ def group(possibilities, guess):
 KPICKLE='kstates.pickle'
 try:
     with open(KPICKLE) as f:
-        kstates = pickle.load(kstates)
+        kstates = pickle.load(f)
+    print 'loaded kstates from cache'
 except Exception as e:
     print "Failed to load kstates cache:", e
     print 'Layer 1 kstates'

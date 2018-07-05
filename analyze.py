@@ -33,15 +33,16 @@ def clue(secret, guess):
         sm += min(secretcts[key], guesscts[key])
     return sm
 
-def reduce(possibilities, guess):
-    cts = collections.defaultdict(int)
+def group(possibilities, guess):
+    cts = collections.defaultdict(set)
     for p in possibilities:
-        cts[clue(p, guess)] += 1
+        cts[clue(p, guess)].add(p)
     return cts
 
-for w in sorted(WORDS):
-    reductions = reduce(WORDS, w)
-    print w, sum(v for k, v in reductions.items() if k > 0),
-    for v in sorted(reductions.keys()):
-        print '{}:{}'.format(v, reductions[v]),
+sortedwords = sorted(WORDS)
+for w in sortedwords:
+    groups = group(sortedwords, w)
+    print w, sum(len(v) for k, v in groups.items() if k > 0),
+    for v in sorted(groups.keys()):
+        print '{}:{}'.format(v, len(groups[v])),
     print

@@ -1,6 +1,7 @@
 import collections
 import itertools
 import pickle
+import time
 
 from dict import WORDS
 
@@ -84,6 +85,7 @@ print len(kstates), 'total kstates'
 print len(kstates)/float(len(WORDS)), 'kstates per word?'
 
 print 'Layer 2 kstates (fanout analysis)'
+start = time.time()
 kstates2 = set()
 for i, kstate in enumerate(kstates):
     kstates2.add(kstate)
@@ -101,6 +103,7 @@ for i, kstate in enumerate(kstates):
             else:
                 duped +=1
 
+    print int(time.time()-start),
     print "{}/{} (size {})".format(i+1, len(kstates), len(kstate)), len(kstates2), len(kstates2)/(i+1),
     print "+{} ={} /{}".format(added, duped, ct)
 

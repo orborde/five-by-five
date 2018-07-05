@@ -44,6 +44,10 @@ for w in WORDS:
 print len(anagrams), 'anagram families',
 print 'with about %.2f words each'%(float(len(WORDS))/len(anagrams))
 
+print 'pretrim size:', len(WORDS)
+WORDS = [list(f)[0] for f in anagrams.itervalues()]
+print 'trimmed to', len(WORDS), 'words'
+
 def group(possibilities, guess):
     cts = collections.defaultdict(set)
     for p in possibilities:

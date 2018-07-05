@@ -76,3 +76,16 @@ with open(KPICKLE, 'wb') as f:
 
 print len(kstates), 'total kstates'
 print len(kstates)/float(len(WORDS)), 'kstates per word?'
+
+print 'Layer 2 kstates (fanout analysis)'
+kstates2 = set()
+for i, kstate in enumerate(kstates):
+    kstates2.add(kstate)
+    for w in kstate:
+        groups = group(kstate, w)
+        for v in groups.itervalues():
+            kstates2.add(frozenset(v))
+
+    print "{}/{}".format(i+1, len(kstates)), len(kstates2), len(kstates2)/(i+1)
+
+print len(kstates2), len(kstates2)/float(len(kstates))

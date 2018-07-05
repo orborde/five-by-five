@@ -84,6 +84,7 @@ kstates2 = set()
 for i, kstate in enumerate(kstates):
     kstates2.add(kstate)
     added = 0
+    duped = 0
     for w in kstate:
         groups = group(kstate, w)
         for v in groups.itervalues():
@@ -91,8 +92,10 @@ for i, kstate in enumerate(kstates):
             if v not in kstates2:
                 added += 1
                 kstates2.add(v)
+            else:
+                duped +=1
 
     print "{}/{} (size {})".format(i+1, len(kstates), len(kstate)), len(kstates2), len(kstates2)/(i+1),
-    print "+{}".format(added)
+    print "+{} ={}".format(added, duped)
 
 print len(kstates2), len(kstates2)/float(len(kstates))

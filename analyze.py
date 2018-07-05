@@ -88,6 +88,6 @@ for i, kstate in enumerate(kstates):
         for v in groups.itervalues():
             kstates2.add(frozenset(v))
 
-    print "{}/{}".format(i+1, len(kstates)), len(kstates2), len(kstates2)/(i+1)
+    print "{}/{} (size {})".format(i+1, len(kstates), len(kstate)), len(kstates2), len(kstates2)/(i+1)
 
 print len(kstates2), len(kstates2)/float(len(kstates))

@@ -83,11 +83,16 @@ print 'Layer 2 kstates (fanout analysis)'
 kstates2 = set()
 for i, kstate in enumerate(kstates):
     kstates2.add(kstate)
+    added = 0
     for w in kstate:
         groups = group(kstate, w)
         for v in groups.itervalues():
-            kstates2.add(frozenset(v))
+            v = frozenset(v)
+            if v not in kstates2:
+                added += 1
+                kstates2.add(v)
 
-    print "{}/{} (size {})".format(i+1, len(kstates), len(kstate)), len(kstates2), len(kstates2)/(i+1)
+    print "{}/{} (size {})".format(i+1, len(kstates), len(kstate)), len(kstates2), len(kstates2)/(i+1),
+    print "+{}".format(added)
 
 print len(kstates2), len(kstates2)/float(len(kstates))

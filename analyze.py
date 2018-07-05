@@ -33,6 +33,16 @@ def clue(secret, guess):
         sm += min(secretcts[key], guesscts[key])
     return sm
 
+def anagramkey(word):
+    return ''.join(sorted(word))
+
+anagrams = collections.defaultdict(set)
+for w in WORDS:
+    anagrams[anagramkey(w)].add(w)
+
+print len(anagrams), 'anagram families',
+print 'with about %.2f words each'%(float(len(WORDS))/len(anagrams))
+
 def group(possibilities, guess):
     cts = collections.defaultdict(set)
     for p in possibilities:

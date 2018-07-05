@@ -57,6 +57,8 @@ def group(possibilities, guess):
     return cts
 
 KPICKLE='kstates.pickle'
+SORTEDWORDS = sorted(WORDS)
+
 try:
     with open(KPICKLE) as f:
         kstates = pickle.load(f)
@@ -65,9 +67,8 @@ except Exception as e:
     print "Failed to load kstates cache:", e
     print 'Layer 1 kstates'
     kstates = set()
-    sortedwords = sorted(WORDS)
-    for w in sortedwords:
-        groups = group(sortedwords, w)
+    for w in SORTEDWORDS:
+        groups = group(SORTEDWORDS, w)
         print w, sum(len(v) for k, v in groups.items() if k > 0),
         ak = 0
         for v in sorted(groups.keys()):
@@ -85,11 +86,19 @@ except Exception as e:
 print len(kstates), 'total kstates'
 print len(kstates)/float(len(WORDS)), 'kstates per word?'
 
+def compact_kstate(kstate):
+    ks = 0
+    for w in SORTEDWORDS:
+        ks *= 2
+        if w in kstate:
+            ks += 1
+    return ks
+
 print 'Layer 2 kstates (fanout analysis)'
 start = time.time()
 kstates2 = set()
 for i, kstate in enumerate(kstates):
-    kstates2.add(kstate)
+    kstates2.add(compact_kstate(kstate))
     added = 0
     duped = 0
     ct = 0
@@ -97,7 +106,7 @@ for i, kstate in enumerate(kstates):
         groups = group(kstate, w)
         for v in groups.itervalues():
             ct += 1
-            v = frozenset(v)
+            v = compact_kstate(v)
             if v not in kstates2:
                 added += 1
                 kstates2.add(v)

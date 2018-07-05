@@ -9,7 +9,7 @@ def load_tests(loader, tests, ignore):
     return tests
 
 def count(s):
-    s = s.lower()
+    s = s.upper()
     cts = collections.defaultdict(int)
     for c in s:
         cts[c] += 1
@@ -32,3 +32,10 @@ def clue(secret, guess):
     for key in set(itertools.chain(secretcts, guesscts)):
         sm += min(secretcts[key], guesscts[key])
     return sm
+
+def reduce(possibilities, guess):
+    return [p for p in possibilities if clue(p, guess) == 0]
+
+for w in sorted(WORDS):
+    reductions = reduce(WORDS, w)
+    print w, len(reductions)

@@ -5,7 +5,7 @@ with open(WORDSFILE) as f:
     for w in f:
         w = w.strip()
         if len(w) == 5 and w.isalpha():
-            WORDS.add(w.lower())
+            WORDS.add(w.upper())
 
 if __name__ == '__main__':
     print len(WORDS), 'words loaded'

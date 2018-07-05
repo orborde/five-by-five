@@ -23,12 +23,6 @@ print 'trimmed to', len(WORDS), 'words'
 
 SORTEDWORDS = sorted(WORDS)
 
-def group(possibilities, guess):
-    cts = collections.defaultdict(set)
-    for p in possibilities:
-        cts[clue(p, guess)].add(p)
-    return cts
-
 CLUESPICKLE='clues.pickle'
 
 try:

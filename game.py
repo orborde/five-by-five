@@ -30,3 +30,9 @@ def clue(secret, guess):
     for key in set(itertools.chain(secretcts, guesscts)):
         sm += min(secretcts[key], guesscts[key])
     return sm
+
+def group(possibilities, guess):
+    cts = collections.defaultdict(set)
+    for p in possibilities:
+        cts[clue(p, guess)].add(p)
+    return cts

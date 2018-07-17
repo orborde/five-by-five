@@ -7,5 +7,7 @@ with open(WORDSFILE) as f:
         if len(w) == 5 and w.isalpha():
             WORDS.add(w.upper())
 
+SORTEDWORDS = sorted(WORDS)
+
 if __name__ == '__main__':
     print len(WORDS), 'words loaded'

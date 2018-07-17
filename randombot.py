@@ -1,6 +1,7 @@
 # Guess randomly among the remaining possibilities.
 
 import random
+import time
 
 from dict import *
 from game import *
@@ -44,4 +45,18 @@ def play_once(botclass, debug=False):
 
     return guesses
 
-play_once(RandomBot, debug=True)
+def simulate_many(botclass):
+    runs = 0
+    guesses = 0
+
+    start = time.time()
+
+    while True:
+        runs += 1
+        guesses += play_once(botclass)
+
+        if runs % 10 == 0:
+            now = time.time()
+            print now - start, runs, float(runs)/(now-start), float(guesses)/runs
+
+simulate_many(RandomBot)

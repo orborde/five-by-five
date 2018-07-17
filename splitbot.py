@@ -41,7 +41,7 @@ while len(possibilities) > 1:
         try:
             cl = int(raw_input('? '))
             break
-        except KeyboardInterrupt:
+        except (KeyboardInterrupt, EOFError):
             print 'k'
             exit(1)
         except:

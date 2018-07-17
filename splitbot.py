@@ -50,4 +50,8 @@ while len(possibilities) > 1:
     print 'hmm...'
     possibilities = [p for p in possibilities if clue(p, guess) == cl]
 
-print 'Final set:', possibilities
+assert len(possibilities) in [0,1]
+if len(possibilities) == 0:
+    print 'WHAT I HAVE NO IDEA'
+else:
+    print 'Final guess:', possibilities.pop()

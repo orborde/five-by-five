@@ -16,12 +16,9 @@ def best_split(possibilities):
 
     for guess in possibilities:
         groups = group(possibilities, guess)
-        #print best,
         best = min( (split_score(groups), guess), best )
-        #print best
 
-    _, g = best
-    return g
+    return best
 
 
 possibilities = WORDS
@@ -35,8 +32,10 @@ while len(possibilities) > 1:
             print p,
         print
 
-    guess = best_split(possibilities)
-    print 'guessing', guess
+    score, guess = best_split(possibilities)
+    print 'guessing', guess, 'with score', score
+    groups = group(possibilities, guess)
+    print ' '.join('{}:{}'.format(k,len(groups[k])) for k in sorted(groups.keys()))
 
     while True:
         try:

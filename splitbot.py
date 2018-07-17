@@ -42,6 +42,9 @@ while len(possibilities) > 1:
         try:
             cl = int(raw_input('? '))
             break
+        except KeyboardInterrupt:
+            print 'k'
+            exit(1)
         except:
             print 'wat'
 

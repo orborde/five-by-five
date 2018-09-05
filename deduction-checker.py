@@ -6,8 +6,17 @@ from game import *
 
 import sys
 
+if sys.__stdin__.isatty():
+    PROMPT = '> '
+else:
+    PROMPT = ''
+
+def reader():
+    while True:
+        yield raw_input(PROMPT)
+
 clues = []
-for line in sys.stdin:
+for line in reader():
     w, n = line.strip().split()
     w, n = w.upper(), int(n)
     clues.append( (w,n) )

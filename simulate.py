@@ -13,5 +13,5 @@ if __name__ == '__main__':
 
     _, botname = sys.argv
 
-    bot = BOTS[botname]()
-    drivers.play_with(bot)
+    bot = BOTS[botname]
+    drivers.simulate_many(bot)

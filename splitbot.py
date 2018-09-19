@@ -35,7 +35,6 @@ class SplitBot:
     def guess(self):
         ss = frozenset(self._possibilities)
         if ss in movecache:
-            self._guessed += 1
             print 'Loaded cached move'
             guess = movecache[ss]
 

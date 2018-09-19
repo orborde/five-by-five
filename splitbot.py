@@ -43,7 +43,7 @@ class SplitBot:
 
     def clue(self, word, count):
         print 'hmm...'
-        self._possibilities = [p for p in self._possibilities if clue(p, guess) == cl]
+        self._possibilities = [p for p in self._possibilities if clue(p, word) == count]
 
     def status(self):
         return '{} possibilities left'.format(len(self._possibilities))

@@ -71,6 +71,7 @@ def play_with(bot, word=None, verbose=True):
 
     if guesses[-1] != word:
         final = bot.guess()
+        guesses.append(final)
     else:
         final = guesses[-1]
     if verbose:

@@ -15,7 +15,7 @@ class RandomBot:
 
     def done(self):
         assert len(self._possibilities) > 0
-        return len(self._possibilites) == 1
+        return len(self._possibilities) == 1
 
     def clue(self, word, count):
         self._possibilities = set(

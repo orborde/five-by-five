@@ -20,38 +20,50 @@ def best_split(possibilities):
 
     return best
 
+class SplitBot:
+    def __init__(self):
+        self._possibilities = WORDS
 
-possibilities = WORDS
-
-while len(possibilities) > 1:
-    assert len(possibilities) > 0
-
-    print 'Thinking about {} possibilities'.format(len(possibilities))
-    if len(possibilities) <= 10:
-        for p in possibilities:
-            print p,
+    def guess(self):
+        assert len(self._possibilities) > 0, 'WHAT I HAVE NO IDEA'
+        print 'Thinking about {} possibilities'.format(len(self._possibilities))
+        if len(self._possibilities) <= 10:
+            for p in self._possibilities:
+                print p,
         print
 
-    score, guess = best_split(possibilities)
-    print 'guessing', guess, 'with score', score
-    groups = group(possibilities, guess)
-    print ' '.join('{}:{}'.format(k,len(groups[k])) for k in sorted(groups.keys()))
+        score, guess = best_split(self._possibilities)
+        print 'guessing', guess, 'with score', score
+        groups = group(self._possibilities, guess)
+        print ' '.join('{}:{}'.format(k,len(groups[k])) for k in sorted(groups.keys()))
+        return guess
 
-    while True:
-        try:
-            cl = int(raw_input('? '))
-            break
-        except (KeyboardInterrupt, EOFError):
-            print 'k'
-            exit(1)
-        except:
-            print 'wat'
+    def done(self):
+        return len(self._possibilities) == 1
 
-    print 'hmm...'
-    possibilities = [p for p in possibilities if clue(p, guess) == cl]
+    def clue(self, word, count):
+        print 'hmm...'
+        self._possibilities = [p for p in self._possibilities if clue(p, guess) == cl]
 
-assert len(possibilities) in [0,1]
-if len(possibilities) == 0:
-    print 'WHAT I HAVE NO IDEA'
-else:
-    print 'Final guess:', possibilities.pop()
+    def status(self):
+        return '{} possibilities left'.format(len(self._possibilities))
+
+
+
+if __name__ == '__main__':
+    bot = SplitBot()
+    while not bot.done():
+        guess = bot.guess()
+        while True:
+            try:
+                cl = int(raw_input('%s? '%guess))
+                break
+            except (KeyboardInterrupt, EOFError):
+                print 'k'
+                exit(1)
+            except:
+                print 'wat'
+
+        bot.clue(guess, cl)
+
+    print "If it isn't %s, I don't know what it is!"%bot.guess()

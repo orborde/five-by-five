@@ -13,6 +13,10 @@ class RandomBot:
     def guess(self):
         return random.choice(list(self._possibilities))
 
+    def done(self):
+        assert len(self._possibilities > 0)
+        return len(self._possibilites == 1)
+
     def clue(self, word, count):
         self._possibilities = set(
             w for w in self._possibilities if clue(w, word) == count)
@@ -37,6 +41,8 @@ def play_once(botclass, debug=False):
             if debug:
                 print 'GOT IT'
             break
+        else:
+            assert not bot.done()
 
         ct = clue(secret, guess)
         if debug:

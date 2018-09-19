@@ -14,8 +14,8 @@ class RandomBot:
         return random.choice(list(self._possibilities))
 
     def done(self):
-        assert len(self._possibilities > 0)
-        return len(self._possibilites == 1)
+        assert len(self._possibilities) > 0
+        return len(self._possibilites) == 1
 
     def clue(self, word, count):
         self._possibilities = set(

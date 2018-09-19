@@ -20,11 +20,22 @@ def best_split(possibilities):
 
     return best
 
+# Splitbot, given a wordlist, always makes the same first move. Cache
+# that move.
+firstmoves = {}
+
 class SplitBot:
     def __init__(self):
         self._possibilities = WORDS
+        self._guessed = False
 
     def guess(self):
+        ss = frozenset(self._possibilities)
+        if ss in firstmoves:
+            self._guessed = True
+            print 'Loaded cached move'
+            return firstmoves[ss]
+
         assert len(self._possibilities) > 0, 'WHAT I HAVE NO IDEA'
         print 'Thinking about {} possibilities'.format(len(self._possibilities))
         if len(self._possibilities) <= 10:
@@ -36,6 +47,11 @@ class SplitBot:
         print 'guessing', guess, 'with score', score
         groups = group(self._possibilities, guess)
         print ' '.join('{}:{}'.format(k,len(groups[k])) for k in sorted(groups.keys()))
+
+        # Cache first move only.
+        if not self._guessed:
+            firstmoves[ss] = guess
+        self._guessed = True
         return guess
 
     def done(self):

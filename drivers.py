@@ -64,4 +64,7 @@ def play_with(bot, word=None):
 
         bot.clue(guess, cl)
 
-    print "If it isn't %s, I don't know what it is!"%bot.guess()
+    final = bot.guess()
+    print "If it isn't %s, I don't know what it is!"%final
+    if word is not None:
+        assert word == final, '...and that guess is wrong :('

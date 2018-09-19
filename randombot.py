@@ -65,4 +65,5 @@ def simulate_many(botclass):
             now = time.time()
             print now - start, runs, float(runs)/(now-start), float(guesses)/runs
 
-simulate_many(RandomBot)
+if __name__ == '__main__':
+    simulate_many(RandomBot)

@@ -47,23 +47,3 @@ class SplitBot:
 
     def status(self):
         return '{} possibilities left'.format(len(self._possibilities))
-
-
-
-if __name__ == '__main__':
-    bot = SplitBot()
-    while not bot.done():
-        guess = bot.guess()
-        while True:
-            try:
-                cl = int(raw_input('%s? '%guess))
-                break
-            except (KeyboardInterrupt, EOFError):
-                print 'k'
-                exit(1)
-            except:
-                print 'wat'
-
-        bot.clue(guess, cl)
-
-    print "If it isn't %s, I don't know what it is!"%bot.guess()

@@ -34,24 +34,29 @@ class SplitBot:
         if ss in firstmoves:
             self._guessed = True
             print 'Loaded cached move'
-            return firstmoves[ss]
+            guess = firstmoves[ss]
 
-        assert len(self._possibilities) > 0, 'WHAT I HAVE NO IDEA'
-        print 'Thinking about {} possibilities'.format(len(self._possibilities))
-        if len(self._possibilities) <= 10:
-            for p in self._possibilities:
-                print p,
-        print
+        else:
+            assert len(self._possibilities) > 0, 'WHAT I HAVE NO IDEA'
+            print 'Thinking about {} possibilities'.format(len(self._possibilities))
+            if len(self._possibilities) <= 10:
+                for p in self._possibilities:
+                    print p,
+            print
 
-        score, guess = best_split(self._possibilities)
-        print 'guessing', guess, 'with score', score
-        groups = group(self._possibilities, guess)
-        print ' '.join('{}:{}'.format(k,len(groups[k])) for k in sorted(groups.keys()))
+            score, guess = best_split(self._possibilities)
+            print 'guessing', guess, 'with score', score
+            groups = group(self._possibilities, guess)
+            print ' '.join('{}:{}'.format(k,len(groups[k])) for k in sorted(groups.keys()))
 
         # Cache first move only.
         if not self._guessed:
             firstmoves[ss] = guess
         self._guessed = True
+
+        # Don't guess the same word twice.
+        self._possibilities.remove(guess)
+
         return guess
 
     def done(self):

@@ -61,13 +61,18 @@ def play_with(bot, word=None, verbose=True):
                 except:
                     print 'wat'
         else:
+            if word == guess:
+                break
             cl = clue(word, guess)
             if verbose:
                 print word, guess, '->', cl
 
         bot.clue(guess, cl)
 
-    final = bot.guess()
+    if guesses[-1] != word:
+        final = bot.guess()
+    else:
+        final = guesses[-1]
     if verbose:
         print "If it isn't %s, I don't know what it is!"%final
     if word is not None:

@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#! /usr/bin/env pypy
 
 from randombot import RandomBot
 from splitbot import SplitBot

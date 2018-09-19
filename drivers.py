@@ -45,9 +45,11 @@ def simulate_many(botclass):
             now = time.time()
             print now - start, runs, float(runs)/(now-start), float(guesses)/runs
 
-def play_with(bot, word=None):
+def play_with(bot, word=None, verbose=True):
+    guesses = []
     while not bot.done():
         guess = bot.guess()
+        guesses.append(guess)
         if word is None:
             while True:
                 try:
@@ -60,11 +62,14 @@ def play_with(bot, word=None):
                     print 'wat'
         else:
             cl = clue(word, guess)
-            print word, guess, '->', cl
+            if verbose:
+                print word, guess, '->', cl
 
         bot.clue(guess, cl)
 
     final = bot.guess()
-    print "If it isn't %s, I don't know what it is!"%final
+    if verbose:
+        print "If it isn't %s, I don't know what it is!"%final
     if word is not None:
         assert word == final, '...and that guess is wrong :('
+    return guesses

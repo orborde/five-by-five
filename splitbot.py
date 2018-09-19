@@ -26,7 +26,7 @@ firstmoves = {}
 
 class SplitBot:
     def __init__(self):
-        self._possibilities = WORDS
+        self._possibilities = list(WORDS)
         self._guessed = False
 
     def guess(self):

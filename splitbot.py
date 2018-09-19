@@ -7,6 +7,8 @@ INF=float('inf')
 
 def split_score(groups):
     sizes = [len(v) for v in groups.values()]
+    if len(sizes) == 1:
+        return sizes[0]
     ret = max(sizes) - min(sizes)
     assert ret >= 0
     return ret

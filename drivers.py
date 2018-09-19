@@ -45,18 +45,22 @@ def simulate_many(botclass):
             now = time.time()
             print now - start, runs, float(runs)/(now-start), float(guesses)/runs
 
-def play_with(bot):
+def play_with(bot, word=None):
     while not bot.done():
         guess = bot.guess()
-        while True:
-            try:
-                cl = int(raw_input('%s? '%guess))
-                break
-            except (KeyboardInterrupt, EOFError):
-                print 'k'
-                exit(1)
-            except:
-                print 'wat'
+        if word is None:
+            while True:
+                try:
+                    cl = int(raw_input('%s? '%guess))
+                    break
+                except (KeyboardInterrupt, EOFError):
+                    print 'k'
+                    exit(1)
+                except:
+                    print 'wat'
+        else:
+            cl = clue(word, guess)
+            print word, guess, '->', cl
 
         bot.clue(guess, cl)
 
